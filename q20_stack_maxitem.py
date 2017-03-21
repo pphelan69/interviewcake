@@ -1,57 +1,47 @@
 class Stack:
-    # initialize an empty list
+
+    # initialize an empty list for stack items and also for max integer items
     def __init__(self):
         self.items = []
+        self.max   = []
 
-    # push a new item to the last index
+
+    # push a new item onto item list and update max list if needed
     def push(self, item):
         self.items.append(item)
+        if len(self.max) == 0 or item >= self.max[-1]:
+            self.max.append(item)
 
-    # remove the last item
+
+    # remove the last item from items list and check to see if this value is a max and if so remove from max list.
     def pop(self):
-        # if the stack is empty, return None
-        # (it would also be reasonable to throw an exception)
-        if not self.items:
+        if len(self.items) == 0:
             return None
+        if self.items[-1] == self.max[-1]:
+            self.max.pop()
+
         return self.items.pop()
+
 
     # see what the last item is
     def peek(self):
-        if not self.items:
+        if len(self.items) == 0:
             return None
-        return self.items[-1]
-
-
-class MaxStack:
-
-    def __init__(self):
-        self.items = Stack()
-        self.max   = Stack()
-
-
-    def push(self,item):
-        self.items.push(item)
-
-        if self.max.peek() is None or item >= self.max.peek():
-            self.max.push(item)
-
-
-    def pop(self):
-        item = self.items.pop()
-
-        if item == self.max.peek():
-            self.max.pop()
-
-        return item
+        else:
+            return self.items[-1]
 
 
     def getMax(self):
-        return self.max.peek()
+        if len(self.max) == 0:
+            return None
+        else:
+            return self.max[-1]
 
 
 
 
-x = MaxStack()
+
+x = Stack()
 x.push(10)
 x.push(8)
 x.push(9)
